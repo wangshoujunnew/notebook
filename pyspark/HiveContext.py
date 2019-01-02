@@ -10,3 +10,16 @@ sc = SparkContext(conf = conf)
 hive_context = HiveContext(sc)
 hive_context.sql('use warehouse')
 hive_context.sql('select order_no from warehouse.mar_order limit 10').show()
+
+# 如果是在pyspark命令行下运行 >>>>>>>>>>>>> 使用sc 来设置配置
+from pyspark import SparkContext,SparkConf
+from pyspark.sql import HiveContext
+
+sc._conf.set("spark.serializer", "org.apache.spark.serializer.KryoSerializer")
+sc._conf.set("hive.metastore.uris", "thrift://hadoop16:9083")
+sc._conf.set("hive.metastore.warehouse.dir","hdfs://nameservice1/home/data/hive/warehouse")
+
+hive_context = HiveContext(sc)
+hive_context.sql('use warehouse')
+hive_context.sql('''select * from ods_tujiaproduct.city limit 1''').show()
+
