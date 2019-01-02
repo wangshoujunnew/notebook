@@ -11,7 +11,10 @@ hive_context = HiveContext(sc)
 hive_context.sql('use warehouse')
 hive_context.sql('select order_no from warehouse.mar_order limit 10').show()
 
+# 提交 spark-submit --queue data_rd  --executor-memory 29G --num-executors 10 --executor-cores 2 --conf spark.default.parallelism=200 MysqlConnect.py
+
 # 如果是在pyspark命令行下运行 >>>>>>>>>>>>> 使用sc 来设置配置
+
 from pyspark import SparkContext,SparkConf
 from pyspark.sql import HiveContext
 
